@@ -44,7 +44,8 @@ template <class T> std::vector<T> read_tsv_flatten(
   return out_vec;
 }
 
-vd TestModule(vd& in_params, const v2i& in_maps, std::function<double(vd&)> inObj, const int in_NS) {
+vd TestModule(vd& in_params, const v2i& in_maps, std::function<double(const vd&)> inObj, const int in_NS,
+              const vd& lbb, const vd& ubb) {
     int testNum = 200;
 
     vd test_intp(testNum);
@@ -56,7 +57,8 @@ vd TestModule(vd& in_params, const v2i& in_maps, std::function<double(vd&)> inOb
         for (int jj = 0; jj < in_NS; jj++) {
           test_state[ii][jj] = test_rnd2(gen_random);
         }
-        test_intp[ii] = EvaluateNoGPU(test_state[ii], in_params, in_maps, in_NS);
+        test_intp[ii] = EvaluateNoGPU(test_state[ii],
+                                      in_params, in_maps, in_NS);
     }
 
     std::chrono::high_resolution_clock::time_point t1, t2;
@@ -64,11 +66,8 @@ vd TestModule(vd& in_params, const v2i& in_maps, std::function<double(vd&)> inOb
 
     vd test_out(testNum);
     for (int ii = 0; ii < testNum; ii++) {
-    test_out[ii] = inObj(test_state[ii]);
+        test_out[ii] = inObj(fun01tolvl(test_state[ii], lbb, ubb));
     }
-
-    t2 = std::chrono::high_resolution_clock::now();
-    auto duration1 = std::chrono::duration_cast<std::chrono::milliseconds> (t2 - t1).count();
 
     vd err_sizes(3, 0.0);
     double tempval;

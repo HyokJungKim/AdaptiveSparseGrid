@@ -1,4 +1,3 @@
-#pragma once
 #include <string>
 #include <cstring>
 #include <cmath>
@@ -12,7 +11,6 @@
 typedef std::vector<double> vd;
 typedef std::vector<int> vi;
 typedef std::vector<bool> vb;
-
 typedef std::vector<std::vector<double>> v2d;
 typedef std::vector<std::vector<int>> v2i;
 

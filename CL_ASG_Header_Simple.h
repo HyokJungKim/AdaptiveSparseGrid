@@ -293,7 +293,21 @@ vd EvaluateNoGPU(const v2d& xx_coordinate, const vd& inParams, const v2i& in_map
     return out;
 }
 
-vd UpdateParams(v2i &in_map, std::function<double(const vd&)> inObj, const vd &prev_params, const int in_NS) {
+vd fun01tolvl(const vd &in01, const vd& lbb, const vd& ubb) {
+    int NV = static_cast<int>(in01.size());
+
+    vd outVec(NV, 0.0);
+
+    for (int ii = 0; ii < NV; ii++) {
+        outVec[ii] = (ubb[ii] - lbb[ii])*in01[ii] + lbb[ii];
+        outVec[ii] = std::clamp<double>(outVec[ii], lbb[ii], ubb[ii]);
+    }
+
+    return outVec;
+}
+
+vd UpdateParams(v2i &in_map, std::function<double(const vd&)> inObj, const vd &prev_params, const int in_NS,
+                const vd& lbb, const vd& ubb) {
   /*
     Combine the grid for consumption and continuation value all together
   */
@@ -315,7 +329,7 @@ vd UpdateParams(v2i &in_map, std::function<double(const vd&)> inObj, const vd &p
   }
 
   for (int row_idx = Nprev; row_idx < Niter; row_idx++) {
-    fvals[row_idx - Nprev] = inObj(eval_grids_all[row_idx - Nprev]);
+    fvals[row_idx - Nprev] = inObj(fun01tolvl(eval_grids_all[row_idx - Nprev], lbb, ubb));
   }
   
   double tent_val, temp_tent;
