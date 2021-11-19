@@ -65,3 +65,24 @@ int main() {
 }
 
 ```
+
+The output of this code is as follows.
+
+```
+------------------- Parameter Expansion Step : 1 / 5 -------------------
+97	41	
+------------------- Parameter Expansion Step : 2 / 5 -------------------
+161	97	
+------------------- Parameter Expansion Step : 3 / 5 -------------------
+281	161	
+------------------- Parameter Expansion Step : 4 / 5 -------------------
+457	281	
+------------------- Parameter Expansion Step : 5 / 5 -------------------
+
+Final number of Grids: 457
+Average Relative Err. Size: 0.000761977
+Average Absolute Err. Size: 0.00027733
+Average Log Err. Size: -9.2197
+
+Process finished with exit code 0
+```
