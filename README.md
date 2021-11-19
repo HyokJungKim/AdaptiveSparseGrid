@@ -89,6 +89,3 @@ Average Log Err. Size: -9.2197
 Process finished with exit code 0
 ```
 We can easily see that because the threshold value was 1e-3 in the example, the average absolute size of the error (average size of error in randomly selected points) is significantly less than 1e-3.
-
-## Tips
-This algorithm is particularly useful when the targeted function has a small range. This method is particularly useful in a dynamic programming problem when approximating a policy function transformed in a small range. I do not recommend using this to approximate a value function.
