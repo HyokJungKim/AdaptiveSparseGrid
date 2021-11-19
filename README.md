@@ -2,8 +2,10 @@
 This repository has a replication of [Brumm and Scheidegger (2017, *Econometrica*)](https://onlinelibrary.wiley.com/doi/abs/10.3982/ECTA12216)
 The original code of Brumm and Scheidegger (2017) does not have tools to make grid points which is crucial in the actual application. This repository is all you need for the construction of grids and interpolation. Only the CPU version is available in this repository. For an OpenCL GPU version, please get in touch with khjkim@ucdavis.edu.
 
+## The Method
 Brumm and Scheidegger (2017) propose an efficient algorithm when approximating a function. The methodology *adaptively* narrows down the grids where errors above a certain threshold are found in the previous iteration. Starting from level 1 (middle point of [0,1] domain), level *n* narrows down the size of the grid to 2^{-n}. Only the expansion of the grids is done where the errors are large, so it efficiently reduces the number of grids needed to approximate a function.
 
+## Example
 Here is a simple example!
 
 ```cpp
@@ -87,3 +89,6 @@ Average Log Err. Size: -9.2197
 Process finished with exit code 0
 ```
 We can easily see that because the threshold value was 1e-3 in the example, the average absolute size of the error (average size of error in randomly selected points) is significantly less than 1e-3.
+
+## Tips
+This algorithm is particularly useful when the targeted function has a small range. In a dynamic programming problem, this method is particularly useful when approximating a policy function transformed in a small range. I personally do not recommend using this to approximate a value function.
