@@ -86,3 +86,4 @@ Average Log Err. Size: -9.2197
 
 Process finished with exit code 0
 ```
+We can easily see that because the threshold value was 1e-3 in the example, the average absolute size of the error (average size of error in randomly selected points) is significantly less than 1e-3.
