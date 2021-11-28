@@ -18,7 +18,7 @@ Here is a simple example!
 //typedef std::vector<std::vector<double>> v2d;
 //typedef std::vector<std::vector<int>> v2i;
 
-double test_fun(const vd& in_vec) {
+double test_fun(const vd& in_vec) { // Try any function you like!
     return in_vec[0] * in_vec[1] + std::log(in_vec[2]*in_vec[2]+1e-1) - 0.5*std::log(std::fabs(in_vec[3])+1e-1);
 }
 
