@@ -1,35 +1,4 @@
-/* ------------------------------------------------------------------------------------
-Adaptive Sparse Grid Package
- - The original paper:
-	Brumm, J., and Scheidegger, S. (2017).
-		Using Adaptive Sparse Grids to Solve High-Dimensional Dynamic Models
-		Econometrica, Vol. 85, No. 5: 1575-1612.
 
-Coder : Hyok Jung Kim
-
-Date : Jan 28th, 2019
-
-Notes
-	(1) This code assumes state variables more than 2. Not sure if it will work with one.
-	(2) Original paper also has codes implemented in C++.
-
-	There are some differences:
-		(a) Original paper uses custom data type to represent vectors and matrices.
-			This code try to implement everything with intrinsic C++ data types, especially <vector>.
-			 - Pros: <vector> is easy to understand and manipulate.
-			 - Cons: We need to malloc and free vectors when passing to GPU, and this is not negligible burden.
-		(b) Original paper mainly uses same grids for all state variables.
-			This code use separate girds for all state variables.
-			 - Pros: May not need to perform unnecessary calculations for each states.
-			 - Cons: When state space is large, may be better to pass big matrix at once especially when using GPU.
-		(c) Calculating power using intrinsic power() surprisingly eats some time
-			This code calculates power of the form integer^integer by dividing manually.
-			This saves over 10% of total execution time.
-		(d) This code intends to be a standalone package.
-			CUDA shared libraries will not need to be recompiled when designing a new model.
-			I have not seen the original code of Brumm & Scheidegger carefully, but maybe
-			my code is more extensible.
------------------------------------------------------------------------------------- */
 #pragma once
 #include <chrono>
 #include "AllSettings.h"
